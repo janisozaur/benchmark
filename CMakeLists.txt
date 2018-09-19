@@ -1,6 +1,14 @@
 cmake_minimum_required (VERSION 2.8.12)
 
-project (benchmark)
+if(NOT (CMAKE_VERSION VERSION_LESS 3.4.0-rc1))
+  project(benchmark CXX)
+else()
+  # FindThreads.cmake issue, see
+  # https://github.com/google/benchmark/pull/681
+  # and
+  # https://github.com/Kitware/CMake/commit/0b38424cf26fea866c54b75347de0c5c8a8d15d3
+  project(benchmark CXX C)
+endif()
 
 foreach(p
     CMP0054 # CMake 3.1
